@@ -9,10 +9,10 @@ makeCacheMatrix <- function(x = matrix()) {
   
   set = function(y){
     #use <<- operator for assigning x current environment
-    x <<- y
+    x <<- y  ## Assign, to the parent environment, the value of y to x. This row and the row below will essenatially erase the value stored in the cache if the matrix is a new matrix. 
     inv <<- NULL
   }
-  
+  # x and inv are sored in the parent environment. To be able to access these values with the CacheSolve function. Set new objects below
   get = function () x
     setInverse = function(solMatrix){
       inv <<- solMatrix 
@@ -33,13 +33,13 @@ cacheSolve <- function(x, ...) {
   
   # if inv is calculated, return inverse
   if(!is.null(inv)){
-          message("getting inverse matrix cache data")
+          message("getting cached data")
           return(inv)
   }
   
         #else calculate inverse
         invMat = x$get()
-        inv = solve(invMat)
+        inv = solve(invMat) ## Function to solve the inverse of the matrix
         x$setInverse(inv)
         inv
 }
